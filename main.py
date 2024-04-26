@@ -8,7 +8,8 @@ def main():
     #events.blackHatScraping()
     #events.fabeTechScraping()
     #events.CESScraping()
-    events.shotShowScraping()
+    #events.shotShowScraping()
+    events.worldConcrete()
 
 # Chamada explícita da função main
 if __name__ == "__main__":

@@ -200,3 +200,34 @@ def shotShowScraping():
 
     # obtem os dados dos cards
     functions.postSoupTreatment(cards)
+
+def worldConcrete():
+
+    url = "https://ge24woc.mapyourshow.com/8_0/explore/exhibitor-gallery.cfm?featured=false"
+    allExhibittorButtonPath = '//*[@id="exhibitor"]'
+    showAllButtonPath = '//*[@id="exhibitor-results"]/div[1]/span/a'
+    totalHeight = 130000
+    nameCards = 'span'
+    classCards = 'b'
+
+    # gera o driver do selenim
+    driver = functions.firefoxGetDriver(url)
+
+    # Aguarda abrir o site
+    functions.driverWait(allExhibittorButtonPath, driver, 10)
+
+    # Encontrar e clicar no botão "All Exhibitors"
+    driver.find_element(By.XPATH, allExhibittorButtonPath).click()
+
+    # Encontrar e clicar no botão "See All Results"
+    driver.find_element(By.XPATH, showAllButtonPath).click()
+    sleep(2)
+
+    # Scrolla a pagina para carregar elementos
+    functions.scrollPage(totalHeight, driver)
+
+    # faz todos os tratamentos seguintes para encontrar os cards
+    cards = functions.preSoupTreatment(driver, nameCards, classCards)
+
+    # obtem os dados dos cards
+    functions.postSoupTreatment(cards)

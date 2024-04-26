@@ -96,10 +96,10 @@ def getNames(cards):
         # Adiciona o texto da opção à lista se não for vazio
         cardText = option.text.strip()
         if cardText:
-            i += 1
+            '''i += 1'''
             companyNames.append(cardText)
-        if i == 20:
-            break
+        '''if i == 20:
+            break'''
 
     # Filtra a lista para remover valores vazios e cria um JSON
     return list(filter(None, companyNames))
