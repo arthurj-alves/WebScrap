@@ -108,8 +108,10 @@ def getNames(cards):
 def getDomains(quantasEmpresas, companyNames):
 
     urlComplete = []
+
     # Inicializa a lista com None para todos os índices
     domains = [None] * quantasEmpresas
+
     # Loop para juntar as strings
     for i in range(quantasEmpresas):
 
@@ -131,14 +133,9 @@ def getDomains(quantasEmpresas, companyNames):
             if empresa['name'].lower() == companyNames[i].lower():
                 domains[i] = empresa['domain']
                 break
-        if domains[i] == None:
-            for empresa in data:
-                similarity = difflib.SequenceMatcher(None, companyNames[i].lower(), empresa['name'].lower()).ratio()
 
-                if similarity > maxSimilarity:
-                    maxSimilarity = similarity
-                    bestDomain = empresa['domain']
-            domains[i] = bestDomain + '; This may not be the correct website'
+        if domains[i] == None:
+            companyNames[i] = None
 
     return domains
 
@@ -159,7 +156,7 @@ def airtableUpdate(companiesData):
 
 def printToguether(companiesName, companiesDomain):
     # printa no terminal
-    for name, domain in zip(companiesName, companiesDomain):
+    for name, domain in zip(list(filter(None, companiesName)), list(filter(None, companiesDomain))):
         print(f"{name}; {domain}")
 
 # usa a biblioteca Pandas para converter o arquivo para CSV
